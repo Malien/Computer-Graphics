@@ -1,6 +1,8 @@
 #pragma once
-#include "util.hpp"
 #include <opencv2/core/mat.hpp>
+
+#include "color_range.hpp"
+#include "util.hpp"
 
 void drawLine(
     cv::Mat &image,
@@ -21,3 +23,30 @@ void drawTriangle(
     const TrianglePolygon triangle,
     const cv::Vec3b color = { 255, 255, 255 }
 );
+
+template <class T>
+cv::Mat mandelbrot(const cv::Size& size, const cv::Rect2d& bounds, const uint max_iterations, const ColorRange<T>& colorRange) {
+    cv::Mat img {size, CV_8UC3};
+    for (size_t i = 0; i < size.height; ++i) {
+        for (size_t j = 0; j < size.width; ++j) {
+            // const double x0 = rescale_screen_coords(j, size.width, -2.5, 1);
+            // const double y0 = rescale_screen_coords(i, size.width, -1.75, 1.75);
+            // const double x0 = rescale_screen_coords(j, size.width, -2.5 / 4 - 0.25, 1.0 / 4 - 0.25);
+            // const double y0 = rescale_screen_coords(i, size.width, -1.75 / 4, 1.75 / 4);
+            const double x0 = rescale_screen_coords(j, size.width, bounds.x, bounds.x + bounds.width);
+            const double y0 = rescale_screen_coords(i, size.width, bounds.y, bounds.y + bounds.height);
+            double x = 0;
+            double y = 0;
+            uint iteration = 0;
+            while (x*x + y*y <= 2*2 && iteration < max_iterations) {
+                double xtemp = x*x - y*y + x0;
+                y = 2*x*y + y0;
+                x = xtemp;
+                iteration++;
+            }
+            img.at<cv::Vec3b>(i, j) = colorRange.pick_value(1.0 * iteration / max_iterations);
+        }
+    }
+
+    return img;
+}

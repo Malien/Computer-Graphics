@@ -17,3 +17,6 @@ target_link_libraries(lines ${OpenCV_LIBS})
 
 add_executable(triangles src/targets/triangles.cpp src/model.cpp src/shapes.cpp src/util.cpp src/samples.cpp)
 target_link_libraries(triangles ${OpenCV_LIBS})
+
+add_executable(mandelbrot src/targets/mandelbrot.cpp)
+target_link_libraries(mandelbrot ${OpenCV_LIBS})

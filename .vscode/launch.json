@@ -3,11 +3,10 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
-        {
+    "configurations": [{
             "type": "lldb",
             "request": "launch",
-            "name": "Debug",
+            "name": "[triangles]: Debug",
             "program": "${workspaceFolder}/bin/triangles",
             "args": [],
             "cwd": "${workspaceFolder}"
@@ -15,11 +14,29 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Build & Debug",
+            "name": "[triangles]: Build & Debug",
             "program": "${workspaceFolder}/bin/triangles",
             "args": [],
             "cwd": "${workspaceFolder}",
-            "preLaunchTask": "Build"
+            "preLaunchTask": "Build Triangles"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "[mandelbrot]: Debug",
+            "program": "${workspaceFolder}/bin/mandelbrot",
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "[mandelbrot]: Build & Debug",
+            "program": "${workspaceFolder}/bin/mandelbrot",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build Mandelbrot"
         }
+
     ]
 }
