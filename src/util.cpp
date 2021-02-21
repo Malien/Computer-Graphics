@@ -28,3 +28,36 @@ cv::Vec3b randomColor() {
     const uchar b = color >> 16;
     return {r, g, b};
 }
+
+cv::Matx<float, 3, 3> xRotationMatrix(double angle) {
+    const float angleCos = cos(angle);
+    const float angleSin = sin(angle);
+
+    return {
+        1, 0, 0,
+        0, angleCos, angleSin,
+        0, -angleSin, angleCos
+    };
+}
+
+cv::Matx<float, 3, 3> yRotationMatrix(double angle) {
+    const float angleCos = cos(angle);
+    const float angleSin = sin(angle);
+
+    return {
+        angleCos, 0, angleSin,
+        0, 1, 0,
+        -angleSin, 0, angleCos
+    };
+}
+
+cv::Matx<float, 3, 3> zRotationMatrix(double angle) {
+    const float angleCos = cos(angle);
+    const float angleSin = sin(angle);
+
+    return {
+        angleCos, -angleSin, 0,
+        angleSin,  angleCos, 0,
+        0, 0, angleCos
+    };
+}

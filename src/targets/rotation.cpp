@@ -1,65 +1,17 @@
-
-#include "model.hpp"
-#include "samples.hpp"
-#include "shapes.hpp"
-#include "util.hpp"
 #include <algorithm>
 #include <opencv2/core.hpp>
 #include <opencv2/core/matx.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
-std::vector<cv::Vec4f> addPadding(const VertexBuffer& vb) {
-    std::vector<cv::Vec4f> vec(vb.size());
-    const auto data = reinterpret_cast<const cv::Vec3f*>(vb.data());
-    std::transform(
-        data,
-        data + vb.size() * 3,
-        begin(vec),
-        [](const cv::Vec3f& vertex){
-            return cv::Vec4f { vertex[0], vertex[1], vertex[2], 0 };
-        }
-    );
-    return vec;
-}
-
-cv::Matx<float, 3, 3> xRotationMatrix(double angle) {
-    const float angleCos = cos(angle);
-    const float angleSin = sin(angle);
-
-    return {
-        1, 0, 0,
-        0, angleCos, angleSin,
-        0, -angleSin, angleCos
-    };
-}
-
-cv::Matx<float, 3, 3> yRotationMatrix(double angle) {
-    const float angleCos = cos(angle);
-    const float angleSin = sin(angle);
-
-    return {
-        angleCos, 0, angleSin,
-        0, 1, 0,
-        -angleSin, 0, angleCos
-    };
-}
-
-cv::Matx<float, 3, 3> zRotationMatrix(double angle) {
-    const float angleCos = cos(angle);
-    const float angleSin = sin(angle);
-
-    return {
-        angleCos, -angleSin, 0,
-        angleSin,  angleCos, 0,
-        0, 0, angleCos
-    };
-}
+#include "model.hpp"
+#include "samples.hpp"
+#include "shapes.hpp"
+#include "util.hpp"
 
 int main() {
     const auto model = Model::fromObjectFile("african_head.obj").unwrap();
 
-    // const auto vertexes = addPadding(model.vertexBuffer());
     const auto vb = model.vertexBuffer();
     const auto data = reinterpret_cast<const float*>(vb.data());
 
@@ -73,7 +25,6 @@ int main() {
     const auto rotated_data = reinterpret_cast<TrianglePolygon*>(rotated.data);
     for (size_t i = 0; i < vb.size(); ++i) {
         const auto polygon2d = project2d(rotated_data[i], canvasSize);
-        // drawTriangle(image, polygon2d, randomColor());
         cv::fillConvexPoly(image, polygon2d.data(), 3, randomColor());
     }
 

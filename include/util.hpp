@@ -25,3 +25,7 @@ T rescale_into_range(T x, T from, T to) {
 inline double rescale_screen_coords(int x, int original_max, double scaled_min, double scaled_max) {
     return rescale_into_range(1.0 * x / original_max, scaled_min, scaled_max);
 }
+
+cv::Matx<float, 3, 3> xRotationMatrix(double angle);
+cv::Matx<float, 3, 3> yRotationMatrix(double angle);
+cv::Matx<float, 3, 3> zRotationMatrix(double angle);
