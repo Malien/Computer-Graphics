@@ -5,24 +5,20 @@ cv::Vec2f project2d(const cv::Vec3f vertex, const cv::Size canvasSize) {
     return {(vertex[0] + 1.f) * width / 2.f, height - (vertex[1] + 1.f) * height / 2.f};
 }
 
+TrianglePolygon2d project2d(const TrianglePolygon& polygon, const cv::Size canvasSize) {
+    const auto& [a, b, c] = polygon;
+    return {
+        cv::Point(project2d(a, canvasSize)),
+        cv::Point(project2d(b, canvasSize)),
+        cv::Point(project2d(c, canvasSize))
+    };
+}
+
 double length(const cv::Vec2i &vec) { return sqrt(vec[0] * vec[0] + vec[1] * vec[1]); }
 
 cv::Vec2d normalize(const cv::Vec2i &original) {
     const double len = length(original);
     return cv::Vec2d(original[0] / len, original[1] / len);
-}
-
-std::array<cv::Point, 3> triangleForFace(const Model& model, const std::vector<int>& face, const cv::Size size) {
-    std::array<cv::Point, 3> polygon;
-    std::transform(
-        begin(face),
-        end(face),
-        polygon.begin(),
-        [&model, size](const int vertexID) {
-            return static_cast<cv::Point>(project2d(model.verts[vertexID], size));
-        }
-    );
-    return polygon;
 }
 
 cv::Vec3b randomColor() {

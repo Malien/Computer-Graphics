@@ -3,6 +3,7 @@
         "Vetroscope",
         "dtype",
         "imread",
-        "imshow"
+        "imshow",
+        "verts"
     ]
 }

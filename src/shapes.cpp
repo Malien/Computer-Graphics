@@ -8,7 +8,6 @@
 // #include "range/v3/view/subrange.hpp"
 // #include "range/v3/view/transform.hpp"
 #include "shapes.hpp"
-#include "util.hpp"
 
 template <class T>
 void drawLineImpl(
@@ -83,12 +82,12 @@ int edgeFunction(const cv::Point& p, const cv::Point& v0, const cv::Point& v1) {
     return (p.x - v1.x) * (v0.y - v1.y) - (p.y - v1.y) * (v0.x - v1.x);
 }
 
-bool isWithinTriangle(const cv::Point& p, const TrianglePolygon& triangle) {
+bool isWithinTriangle(const cv::Point& p, const TrianglePolygon2d& triangle) {
     const auto& [v0, v1, v2] = triangle;
     return edgeFunction(p, v0, v1) >= 0 && edgeFunction(p, v1, v2) >= 0 && edgeFunction(p, v2, v0) >= 0;
 }
 
-cv::Rect boundingBox(const TrianglePolygon &triangle) {
+cv::Rect boundingBox(const TrianglePolygon2d &triangle) {
     std::array<int, 3> xs, ys;
     std::transform(begin(triangle), end(triangle), begin(xs), [](const cv::Point &p) {
         return p.x;
@@ -107,7 +106,7 @@ cv::Rect boundingBox(const TrianglePolygon &triangle) {
     return {cv::Point{*minx, *miny}, cv::Point{*maxx, *maxy}};
 }
 
-void drawTriangle(cv::Mat &image, const TrianglePolygon triangle, const cv::Vec3b color) {
+void drawTriangle(cv::Mat &image, const TrianglePolygon2d triangle, const cv::Vec3b color) {
     const auto [x, y, width, height] = boundingBox(triangle);
     for (int i = y; i < y + height; ++i) {
         for (int j = x; j < x + width; ++j) {

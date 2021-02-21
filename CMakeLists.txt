@@ -20,3 +20,6 @@ target_link_libraries(triangles ${OpenCV_LIBS})
 
 add_executable(mandelbrot src/targets/mandelbrot.cpp)
 target_link_libraries(mandelbrot ${OpenCV_LIBS})
+
+add_executable(rotation src/targets/rotation.cpp src/samples.cpp src/shapes.cpp src/util.cpp src/model.cpp)
+target_link_libraries(rotation ${OpenCV_LIBS})

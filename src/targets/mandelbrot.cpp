@@ -1,7 +1,8 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/opencv.hpp>
 
-#include "samples.hpp"
+#include "shapes.hpp"
+#include "color_range.hpp"
 
 int main() {
     const LinearColorRange colorRange {

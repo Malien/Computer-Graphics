@@ -14,14 +14,19 @@
             }
         },
         {
-            "label": "Build Triangles",
+            "label": "Build triangles",
             "type": "shell",
             "command": "make triangles"
         },
         {
-            "label": "Build Mandelbrot",
+            "label": "Build mandelbrot",
             "type": "shell",
             "command": "make mandelbrot"
+        },
+        {
+            "label": "Build rotation",
+            "type": "shell",
+            "command": "make rotation"
         }
     ]
 }

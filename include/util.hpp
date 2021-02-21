@@ -2,17 +2,18 @@
 #include <array>
 #include <opencv2/core/mat.hpp>
 
-#include "model.hpp"
+typedef std::array<cv::Point, 3> TrianglePolygon2d;
+typedef std::array<cv::Vec3f, 3> TrianglePolygon;
 
-typedef std::array<cv::Point, 3> TrianglePolygon;
+typedef std::vector<TrianglePolygon> VertexBuffer;
 
 cv::Vec2f project2d(const cv::Vec3f vertex, const cv::Size canvasSize);
+
+TrianglePolygon2d project2d(const TrianglePolygon&, const cv::Size canvasSize);
 
 double length(const cv::Vec2i &vec);
 
 cv::Vec2d normalize(const cv::Vec2i &original);
-
-TrianglePolygon triangleForFace(const Model& model, const std::vector<int>& face, const cv::Size size);
 
 cv::Vec3b randomColor();
 

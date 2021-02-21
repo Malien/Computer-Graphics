@@ -1,12 +1,16 @@
+#include <opencv2/core.hpp>
+
 #include "samples.hpp"
+#include "model.hpp"
+#include "util.hpp"
 
 template <class T> cv::Mat wireframeImageOf(const Model &model, T drawLineFn) {
     const cv::Size size{800, 800};
 
     cv::Mat image(size, CV_8UC3, cv::Scalar(0));
 
-    for (const auto &face : model.faces) {
-        const auto [p1, p2, p3] = triangleForFace(model, face, size);
+    for (const auto &polygon : model.vertexBuffer()) {
+        const auto [p1, p2, p3] = project2d(polygon, size);
         drawLineFn(image, p1, p2);
         drawLineFn(image, p2, p3);
         drawLineFn(image, p3, p1);
@@ -20,10 +24,8 @@ cv::Mat shadedImageOf(const Model &model, T polygonDrawFn) {
     const cv::Size size{800, 800};
     cv::Mat image{size, CV_8UC3};
 
-    for (const auto &face : model.faces) {
-        const auto polygon = triangleForFace(model, face, size);
-        polygonDrawFn(image, triangleForFace(model, face, size));
-        cv::fillConvexPoly(image, polygon.data(), 3, randomColor(), cv::LINE_AA);
+    for (const auto &polygon : model.vertexBuffer()) {
+        polygonDrawFn(image, project2d(polygon, size));
     }
 
     return image;
@@ -36,7 +38,7 @@ cv::Mat builtin::wireframeImageOf(const Model &model) {
 }
 
 cv::Mat builtin::shadedImageOf(const Model &model) {
-    return shadedImageOf(model, [](cv::Mat &image, const TrianglePolygon& triangle) {
+    return shadedImageOf(model, [](cv::Mat &image, const TrianglePolygon2d& triangle) {
         cv::fillConvexPoly(image, triangle.data(), 3, randomColor(), cv::LINE_AA);
     });
 }
@@ -76,7 +78,7 @@ cv::Mat homemade::wireframeImageOf(const Model &model) {
 }
 
 cv::Mat homemade::shadedImageOf(const Model &model) {
-    return shadedImageOf(model, [](cv::Mat &image, const TrianglePolygon& triangle) {
+    return shadedImageOf(model, [](cv::Mat &image, const TrianglePolygon2d& triangle) {
         drawTriangle(image, triangle, randomColor());
     });
 }

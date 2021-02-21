@@ -18,7 +18,7 @@
             "program": "${workspaceFolder}/bin/triangles",
             "args": [],
             "cwd": "${workspaceFolder}",
-            "preLaunchTask": "Build Triangles"
+            "preLaunchTask": "Build triangles"
         },
         {
             "type": "lldb",
@@ -35,8 +35,24 @@
             "program": "${workspaceFolder}/bin/mandelbrot",
             "args": [],
             "cwd": "${workspaceFolder}",
-            "preLaunchTask": "Build Mandelbrot"
+            "preLaunchTask": "Build mandelbrot"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "[rotation]: Debug",
+            "program": "${workspaceFolder}/bin/rotation",
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "[rotation]: Build & Debug",
+            "program": "${workspaceFolder}/bin/rotation",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build rotation"
         }
-
     ]
 }

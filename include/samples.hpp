@@ -1,7 +1,9 @@
 #pragma once
+#include <opencv2/imgproc.hpp>
+
 #include "shapes.hpp"
 #include "util.hpp"
-#include <opencv2/imgproc.hpp>
+#include "model.hpp"
 
 namespace builtin {
     cv::Mat wireframeImageOf(const Model &model);
