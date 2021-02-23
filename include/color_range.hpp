@@ -3,7 +3,7 @@
 #include <vector>
 
 template<class T>
-struct linear_interpolation {
+struct linearInterpolation {
     T operator()(double percentage, T min, T max) const noexcept {
         return min + (max - min) * percentage;
     }
@@ -14,7 +14,7 @@ struct ColorStop {
     cv::Vec3b color;
 };
 
-template <class InterpolationFn = linear_interpolation<uchar>>
+template <class InterpolationFn = linearInterpolation<uchar>>
 struct ColorRange {
     InterpolationFn interpolate = InterpolationFn();
     std::vector<ColorStop> stopList;
@@ -50,7 +50,7 @@ struct ColorRange {
         return { { 0, color }, { 1, color } };
     }
 
-    cv::Vec3b pick_value(double percentage) const {
+    cv::Vec3b pickValue(double percentage) const {
         const auto& [from, to] = closestRange(percentage);
         // const double innerPercentage = rescale_into_range(percentage, from.keypoint, to.keypoint);
         const double innerPercentage = (percentage - from.keypoint) / (to.keypoint - from.keypoint);
@@ -62,13 +62,13 @@ struct ColorRange {
     }
 };
 
-typedef ColorRange<linear_interpolation<uchar>> LinearColorRange;
+typedef ColorRange<linearInterpolation<uchar>> LinearColorRange;
 
 template <class T>
-void draw_color_gradient(cv::Mat image, const ColorRange<T>& gradient, const cv::Rect& bounds) {
+void drawColorGradient(cv::Mat image, const ColorRange<T>& gradient, const cv::Rect& bounds) {
     for (size_t i = bounds.y; i < bounds.y + bounds.height; ++i) {
         const double percentage = (1.0 * i - bounds.y) / bounds.height;
-        const cv::Vec3b color = gradient.pick_value(percentage);
+        const cv::Vec3b color = gradient.pickValue(percentage);
         for (size_t j = bounds.x; j < bounds.x + bounds.width; ++j) {
             image.at<cv::Vec3b>(i, j) = color;
         }

@@ -41,7 +41,7 @@ cv::Mat mandelbrot(const cv::Size& size, const cv::Rect2d& bounds, const uint ma
                 x = xtemp;
                 iteration++;
             }
-            img.at<cv::Vec3b>(i, j) = colorRange.pick_value(1.0 * iteration / max_iterations);
+            img.at<cv::Vec3b>(i, j) = colorRange.pickValue(1.0 * iteration / max_iterations);
         }
     }
 
