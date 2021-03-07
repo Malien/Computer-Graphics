@@ -9,8 +9,10 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 find_package(OpenCV REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
 
-include_directories(include)
+include_directories(include ${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS})
 
 add_executable(lines src/targets/lines.cpp src/model.cpp src/shapes.cpp src/util.cpp src/samples.cpp)
 target_link_libraries(lines ${OpenCV_LIBS})
@@ -23,3 +25,6 @@ target_link_libraries(mandelbrot ${OpenCV_LIBS})
 
 add_executable(rotation src/targets/rotation.cpp src/samples.cpp src/shapes.cpp src/util.cpp src/model.cpp)
 target_link_libraries(rotation ${OpenCV_LIBS})
+
+add_executable(lighting src/targets/lighting.cpp)
+target_link_libraries(lighting ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
