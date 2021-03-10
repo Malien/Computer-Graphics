@@ -27,6 +27,18 @@
             "label": "Build rotation",
             "type": "shell",
             "command": "make rotation"
+        },
+        {
+            "label": "Build lighting",
+            "type": "shell",
+            "command": "make lighting"
+        },
+        {
+            "label": "Build lighting_model",
+            "type": "shell",
+            "command": "make lighting_model"
         }
+
+
     ]
 }

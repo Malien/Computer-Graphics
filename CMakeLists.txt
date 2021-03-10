@@ -28,3 +28,6 @@ target_link_libraries(rotation ${OpenCV_LIBS})
 
 add_executable(lighting src/targets/lighting.cpp)
 target_link_libraries(lighting ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
+
+add_executable(lighting_model src/targets/lighting_model.cpp src/model.cpp src/util.cpp)
+target_link_libraries(lighting_model ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${OpenCV_LIBS})

@@ -53,6 +53,40 @@
             "args": [],
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "Build rotation"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "[lighting]: Debug",
+            "program": "${workspaceFolder}/bin/lighting",
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "[lighting]: Build & Debug",
+            "program": "${workspaceFolder}/bin/lighting",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build lighting"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "[lighting_model]: Debug",
+            "program": "${workspaceFolder}/bin/lighting_model",
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "[lighting_model]: Build & Debug",
+            "program": "${workspaceFolder}/bin/lighting_model",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build lighting_model"
         }
     ]
 }

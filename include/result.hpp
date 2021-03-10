@@ -42,6 +42,46 @@ struct Result {
         }
     }
 
+    bool isOk() const noexcept {
+        return tag() == Tag::OK;
+    }
+
+    bool isErr() const noexcept {
+        return tag() == Tag::ERR;
+    }
+
+    template<class F>
+    void ifOk(F function) const noexcept {
+        if (isOk()) {
+            function(_data.ok);
+        }
+    }
+
+    template<class F>
+    void ifErr(F function) const noexcept {
+        if (isErr()) {
+            function(_data.error);
+        }
+    }
+
+    template<class R>
+    struct Match {
+        const Result<T, E>& parent;
+        template<class FOK, class FERR>
+        R operator()(FOK onOk, FERR onErr) const noexcept {
+            if (parent.isOk()) {
+                return onOk(parent._data.ok);
+            } else {
+                return onErr(parent._data.error);
+            }
+        }
+    };
+
+    template<class R>
+    Match<R> match() const noexcept {
+        return Match<R> { *this };
+    }
+
     static Result ok(const T& okData) noexcept {
         Result<T, E> result;
         result._tag = Tag::OK;
