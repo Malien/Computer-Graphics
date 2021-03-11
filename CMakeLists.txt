@@ -34,3 +34,6 @@ target_link_libraries(lighting_model ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${OpenC
 
 add_executable(opengl_objects src/targets/opengl_objects.cpp src/model.cpp src/util.cpp)
 target_link_libraries(opengl_objects ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${OpenCV_LIBS})
+
+add_executable(opengl_fog src/targets/opengl_fog.cpp src/model.cpp src/util.cpp)
+target_link_libraries(opengl_fog ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${OpenCV_LIBS})
